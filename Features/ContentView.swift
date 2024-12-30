@@ -15,7 +15,7 @@ struct ContentView: View {
             }
             
             Tab("Movies", systemImage: "film.stack") {
-                Text("Movies")
+                MovieList()
             }
         }
 //        VStack {
