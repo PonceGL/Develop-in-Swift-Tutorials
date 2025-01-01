@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct FriendDetail: View {
     @Bindable var friend: Friend
@@ -13,6 +14,8 @@ struct FriendDetail: View {
     
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var context
+    
+    @Query(sort: \Movie.title) private var movies: [Movie]
     
     init(friend: Friend, isNew: Bool = false) {
         self.friend = friend
@@ -23,6 +26,16 @@ struct FriendDetail: View {
         Form {
             TextField("Name", text: $friend.name)
                 .autocorrectionDisabled()
+            
+            Picker("Favorite Movie", selection: $friend.favoriteMovie) {
+                Text("None")
+                    .tag(nil as Movie?)
+                
+                ForEach(movies) { movie in
+                    Text(movie.title)
+                        .tag(movie)
+                }
+            }
         }
         .navigationTitle(isNew ? "New Friend" : "Friend")
         .navigationBarTitleDisplayMode(.inline)
@@ -49,10 +62,12 @@ struct FriendDetail: View {
     NavigationStack {
         FriendDetail(friend: SampleData.shared.friend)
     }
+    .modelContainer(SampleData.shared.modelContainer)
 }
 
 #Preview {
     NavigationStack {
         FriendDetail(friend: SampleData.shared.friend, isNew: true)
     }
+    .modelContainer(SampleData.shared.modelContainer)
 }
