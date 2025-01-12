@@ -13,11 +13,16 @@ struct ContentView: View {
             Tab("Friends", systemImage: "person.and.person") {
                 FriendList()
             }
-            
+
             Tab("Movies", systemImage: "film.stack") {
                 FilteredMovieList()
             }
+            
+            Tab("Files", systemImage: "pencil.tip.crop.circle") {
+                SelectView()
+            }
         }
+
     }
 }
 
