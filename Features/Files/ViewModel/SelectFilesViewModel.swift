@@ -11,10 +11,14 @@ import UniformTypeIdentifiers
 
 class SelectFilesViewModel: ObservableObject {
     @Published var files: [URL] = []
-    private var fileSet: Set<String> = []
     @Published var showFileImporter = false
+    @Published var errorMessage: String? = nil
+    private var selectedDirectory: URL? = nil
+    private var fileSet: Set<String> = []
+    private let fileManagerService = FileManagerService.shared
     
-    private func addFiles(_ file: URL) {
+    private func addFiles(file: URL) {
+        if file.hasDirectoryPath { return } // TODO: handle sub directories
         let fileKey = file.absoluteString
         guard !fileSet.contains(fileKey) else { return }
         
@@ -27,33 +31,40 @@ class SelectFilesViewModel: ObservableObject {
         }
     }
     
+    private func addFilesFromDirectory(directory: URL) {
+        selectedDirectory = directory
+        let files = loadFilesFromSelectedDirectory()
+        for file in files {
+            addFiles(file: file)
+        }
+    }
+    
+    private  func loadFilesFromSelectedDirectory() -> [URL] {
+        guard let directoryURL = selectedDirectory else { return [] }
+        
+        let directoryExists = fileManagerService.directoryExists(at: directoryURL)
+        if directoryExists {
+            if let filesURLs = fileManagerService.filesInDirectory(at: directoryURL) {
+                errorMessage = nil
+                return filesURLs
+            } else {
+                errorMessage = "No se pudieron cargar los archivos del directorio."
+                return []
+            }
+        } else {
+            errorMessage = "El directorio ya no existe. Por favor selecciona otro."
+            return []
+        }
+    }
+    
     func loadFiles(result: Result<[URL], any Error>) {
-        print("======================")
-        print("=== loadFiles result ===")
-        print(result)
-        print("======================")
-        
-        // Files
-        //        [file:///Users/ponciano.guevara@digitalfemsa.com/Library/Developer/CoreSimulator/Devices/761AA78C-7169-46B1-BCF3-CAE3FDBDFCD8/data/Containers/Shared/AppGroup/A58E6035-9727-4287-B1F6-06B40EF0FF4D/File%20Provider%20Storage/IMDB/Avengers_%20Endgame%20(2019)%20-%20IMDb.pdf])
-        
-        // Directory
-//        [file:///Users/ponciano.guevara@digitalfemsa.com/Library/Developer/CoreSimulator/Devices/761AA78C-7169-46B1-BCF3-CAE3FDBDFCD8/data/Containers/Shared/AppGroup/A58E6035-9727-4287-B1F6-06B40EF0FF4D/File%20Provider%20Storage/IMDB/])
-        
-        
         switch result {
             case .success(let files):
             for file in files {
                 if file.hasDirectoryPath {
-                    print("======================")
-                    print("=== Selected Directory ===")
-                    print(file)
-                    print("======================")
+                    addFilesFromDirectory(directory: file)
                 } else {
-                    print("======================")
-                    print("=== Selected File ===")
-                    print(file)
-                    print("======================")
-                    addFiles(file)
+                    addFiles(file: file)
                 }
             }
             
@@ -62,35 +73,37 @@ class SelectFilesViewModel: ObservableObject {
                 print("=== loadFiles error ===")
                 print(error)
                 print("======================")
+            errorMessage = error.localizedDescription
         }
     }
     
     func handleDrop(providers: [NSItemProvider]) -> Bool {
-            var handled = false
-            
-            for provider in providers {
-                if provider.hasItemConformingToTypeIdentifier(UTType.pdf.identifier) {
-                    provider.loadItem(forTypeIdentifier: UTType.pdf.identifier, options: nil) { item, error in
-                        if let error = error {
-                            print("======================")
-                            print("=== handleDrop error ===")
-                            print(error)
-                            print("======================")
-                        }
-                        
-                        if let item = item {
-                            DispatchQueue.main.async {
-                                self.files.append(URL(string: String(describing: item))!)
-                                handled = true
-                            }
+        var handled = false
+        
+        for provider in providers {
+            if provider.hasItemConformingToTypeIdentifier(UTType.pdf.identifier) {
+                provider.loadItem(forTypeIdentifier: UTType.pdf.identifier, options: nil) { item, error in
+                    if let error = error {
+                        print("======================")
+                        print("=== handleDrop error ===")
+                        print(error)
+                        print("======================")
+                        self.errorMessage = error.localizedDescription
+                    }
+                    
+                    if let item = item {
+                        DispatchQueue.main.async {
+                            self.files.append(URL(string: String(describing: item))!)
+                            handled = true
                         }
                     }
-                } else {
-                    print("=== ELSE ===")
                 }
+            } else {
+                print("=== ELSE ===")
             }
-            
-            return handled
         }
+        
+        return handled
+    }
     
 }
