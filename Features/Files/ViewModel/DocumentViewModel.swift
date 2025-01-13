@@ -11,20 +11,29 @@ import UniformTypeIdentifiers
 
 class FilesViewModel: ObservableObject {
     @Published var files: [URL] = []
+    private var fileSet: Set<String> = []
     @Published var showFileImporter = false
     
+    private func addFiles(_ newFiles: [URL]) {
+        for file in newFiles {
+            let fileKey = file.absoluteString
+            guard !fileSet.contains(fileKey) else { continue }
+            
+            let gotAccess = file.startAccessingSecurityScopedResource()
+            if gotAccess {
+                fileSet.insert(file.absoluteString)
+                DispatchQueue.main.async {
+                    self.files.append(file)
+                }
+            }
+            
+        }
+    }
     
     func loadFiles(result: Result<[URL], any Error>) {
         switch result {
             case .success(let files):
-                files.forEach { file in
-                    let gotAccess = file.startAccessingSecurityScopedResource()
-                    if !gotAccess { return }
-                    DispatchQueue.main.async {
-                        self.files.append(file)
-                    }
-//                    file.stopAccessingSecurityScopedResource() // TODO
-                }
+            addFiles(files)
             case .failure(let error):
                 print("======================")
                 print("=== loadFiles error ===")

@@ -18,7 +18,7 @@ struct ContentView: View {
                 FilteredMovieList()
             }
             
-            Tab("Files", systemImage: "pencil.tip.crop.circle") {
+            Tab("Files", systemImage: "folder.fill") {
                 SelectView()
             }
         }
