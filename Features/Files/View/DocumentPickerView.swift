@@ -8,27 +8,21 @@
 import SwiftUI
 
 struct DocumentPickerView: View {
-    @StateObject private var viewModel = FilesViewModel()
     @Binding var showFileImporter: Bool
+    var disabled: Bool = false
     let handleFiles: (_ result: Result<[URL], any Error>) -> Void
     
     var body: some View {
-        VStack {
-            Text("Select a file")
-                .navigationTitle("Files")
-                .navigationBarTitleDisplayMode(.inline)
-            
-            Button("Add file", systemImage: "plus", action: {
-                print("button")
-                viewModel.showFileImporter = true
-            })
-        }
-        .fileImporter(isPresented: $viewModel.showFileImporter, allowedContentTypes: [.pdf, .directory], allowsMultipleSelection: true, onCompletion: viewModel.loadFiles)
+        Button("Add file", systemImage: "plus", action: {
+            showFileImporter = true
+        })
+        .disabled(disabled)
+        .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.pdf, .folder], allowsMultipleSelection: true, onCompletion: handleFiles)
     }
 }
 
 #Preview {
-    DocumentPickerView(showFileImporter: .constant(false)) { result in
+    DocumentPickerView(showFileImporter: .constant(false), disabled: false) { result in
         print(result)
     }
 }

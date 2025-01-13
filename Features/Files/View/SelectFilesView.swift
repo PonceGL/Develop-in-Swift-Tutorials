@@ -9,21 +9,31 @@ import SwiftUI
 
 struct SelectView: View {
     @StateObject private var viewModel = FilesViewModel()
-//    @State private var showFileImporter = false
     
     var body: some View {
         NavigationSplitView {
-            VStack {
-                Text("Select Files View!")
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    DocumentPickerView(showFileImporter: $viewModel.showFileImporter, handleFiles: viewModel.loadFiles)                    
+            Group {
+                if viewModel.files.count > 0 {
+                    List {
+                        ForEach(viewModel.files, id: \.absoluteString) { file in
+                            NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
+                                PDFViewer(fileURL: file)
+                            }
+                        }
+                    }
+                    .listStyle(.plain)
+                } else {
+                    VStack (spacing: 20) {
+                        Text("Select Files View!")
+                        if UIDevice.current.userInterfaceIdiom != .pad {
+                            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: viewModel.showFileImporter, handleFiles: viewModel.loadFiles)
+                        }
+                    }
                 }
-//                List(viewModel.files, id: \.self) { file in
-//                    Text(file)
-//                }
             }
+            .navigationTitle("Files")
         } detail: {
-            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, handleFiles: viewModel.loadFiles)
+            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles)
         }
     }
 }
