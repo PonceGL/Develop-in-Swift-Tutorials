@@ -40,9 +40,6 @@ struct PDFViewer: View {
     
     var body: some View {
         VStack{
-            Text(fileName)
-                .lineLimit(1)
-                .truncationMode(.tail)
             PDFKitView(url: fileURL)
         }
         .navigationTitle(fileName)

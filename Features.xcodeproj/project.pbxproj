@@ -8,18 +8,45 @@
 
 /* Begin PBXFileReference section */
 		0C27B7C92D220F4F00654B42 /* Features.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Features.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		0CEB64BC2D35A1B3009BD4E7 /* FilesManagerSPJ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilesManagerSPJ.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0CEB64CD2D35AE4B009BD4E7 /* Exceptions for "Features" folder in "FilesManagerSPJ" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Files/Model/FileManagerViewModel.swift,
+				Files/ViewModel/SelectFilesViewModel.swift,
+			);
+			target = 0CEB64BB2D35A1B3009BD4E7 /* FilesManagerSPJ */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0C27B7CB2D220F4F00654B42 /* Features */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0CEB64CD2D35AE4B009BD4E7 /* Exceptions for "Features" folder in "FilesManagerSPJ" target */,
+			);
 			path = Features;
+			sourceTree = "<group>";
+		};
+		0CEB64BD2D35A1B3009BD4E7 /* FilesManagerSPJ */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = FilesManagerSPJ;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		0C27B7C62D220F4F00654B42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CEB64B92D35A1B3009BD4E7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -33,6 +60,7 @@
 			isa = PBXGroup;
 			children = (
 				0C27B7CB2D220F4F00654B42 /* Features */,
+				0CEB64BD2D35A1B3009BD4E7 /* FilesManagerSPJ */,
 				0C27B7CA2D220F4F00654B42 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -41,6 +69,7 @@
 			isa = PBXGroup;
 			children = (
 				0C27B7C92D220F4F00654B42 /* Features.app */,
+				0CEB64BC2D35A1B3009BD4E7 /* FilesManagerSPJ.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -70,6 +99,28 @@
 			productReference = 0C27B7C92D220F4F00654B42 /* Features.app */;
 			productType = "com.apple.product-type.application";
 		};
+		0CEB64BB2D35A1B3009BD4E7 /* FilesManagerSPJ */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0CEB64C82D35A1B6009BD4E7 /* Build configuration list for PBXNativeTarget "FilesManagerSPJ" */;
+			buildPhases = (
+				0CEB64B82D35A1B3009BD4E7 /* Sources */,
+				0CEB64B92D35A1B3009BD4E7 /* Frameworks */,
+				0CEB64BA2D35A1B3009BD4E7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				0CEB64BD2D35A1B3009BD4E7 /* FilesManagerSPJ */,
+			);
+			name = FilesManagerSPJ;
+			packageProductDependencies = (
+			);
+			productName = FilesManagerSPJ;
+			productReference = 0CEB64BC2D35A1B3009BD4E7 /* FilesManagerSPJ.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -81,6 +132,9 @@
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					0C27B7C82D220F4F00654B42 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					0CEB64BB2D35A1B3009BD4E7 = {
 						CreatedOnToolsVersion = 16.2;
 					};
 				};
@@ -100,6 +154,7 @@
 			projectRoot = "";
 			targets = (
 				0C27B7C82D220F4F00654B42 /* Features */,
+				0CEB64BB2D35A1B3009BD4E7 /* FilesManagerSPJ */,
 			);
 		};
 /* End PBXProject section */
@@ -112,10 +167,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		0CEB64BA2D35A1B3009BD4E7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0C27B7C52D220F4F00654B42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0CEB64B82D35A1B3009BD4E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -259,7 +328,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -297,7 +366,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
@@ -312,6 +381,62 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				XROS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		0CEB64C92D35A1B6009BD4E7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FilesManagerSPJ/FilesManagerSPJ.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FilesManagerSPJ/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.poncegl.FilesManagerSPJ;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		0CEB64CA2D35A1B6009BD4E7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FilesManagerSPJ/FilesManagerSPJ.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FilesManagerSPJ/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.poncegl.FilesManagerSPJ;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -332,6 +457,15 @@
 			buildConfigurations = (
 				0C27B7D92D220F5100654B42 /* Debug */,
 				0C27B7DA2D220F5100654B42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0CEB64C82D35A1B6009BD4E7 /* Build configuration list for PBXNativeTarget "FilesManagerSPJ" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0CEB64C92D35A1B6009BD4E7 /* Debug */,
+				0CEB64CA2D35A1B6009BD4E7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
