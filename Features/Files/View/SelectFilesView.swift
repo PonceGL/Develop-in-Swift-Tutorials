@@ -9,19 +9,29 @@ import SwiftUI
 
 struct SelectView: View {
     @StateObject private var viewModel = FilesViewModel()
+    @State private var selectedFile: URL?
     
     var body: some View {
         NavigationSplitView {
             Group {
                 if viewModel.files.count > 0 {
-                    List {
-                        ForEach(viewModel.files, id: \.absoluteString) { file in
-                            NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
-                                PDFViewer(fileURL: file)
-                            }
+                    List(viewModel.files, id: \.absoluteString, selection: $selectedFile) { file in
+                        NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
+                            PDFViewer(fileURL: file)
+                                .tag(file.absoluteString)
                         }
+                        .tag(file.absoluteString)
                     }
                     .listStyle(.plain)
+                    
+//                    List {
+//                        ForEach(viewModel.files, id: \.absoluteString) { file in
+//                            NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
+//                                PDFViewer(fileURL: file)
+//                            }
+//                        }
+//                    }
+//                    .listStyle(.plain)
                 } else {
                     VStack (spacing: 20) {
                         Text("Select Files View!")
@@ -42,7 +52,14 @@ struct SelectView: View {
             }
             .fileImporter(isPresented: $viewModel.showFileImporter, allowedContentTypes: [.pdf, .folder], allowsMultipleSelection: true, onCompletion: viewModel.loadFiles)
         } detail: {
-            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles, handleDrop: viewModel.handleDrop)
+            if let selectedFile = selectedFile {
+                PDFViewer(fileURL: selectedFile)
+            } else {
+                VStack (spacing: 20) {
+                    Text("Select Files View!")
+                    DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles, handleDrop: viewModel.handleDrop)
+                }
+            }
         }
     }
 }

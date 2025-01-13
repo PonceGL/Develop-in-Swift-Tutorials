@@ -35,7 +35,6 @@ struct DocumentPickerView: View {
                 showFileImporter = true
             })
             .disabled(disabled)
-//            .fileImporter(isPresented: $showFileImporter, allowedContentTypes: [.pdf, .folder], allowsMultipleSelection: true, onCompletion: handleFiles)
         }
     }
 }

@@ -6,6 +6,29 @@
 //
 
 import SwiftUI
+import PDFKit
+
+struct PDFKitView: UIViewRepresentable {
+    let url: URL
+
+    func makeUIView(context: Context) -> PDFView {
+        let pdfView = PDFView()
+        pdfView.autoScales = true // Ajusta automáticamente el zoom para que el contenido sea visible
+        pdfView.displayMode = .singlePageContinuous // Configuración para desplazarse entre páginas
+        pdfView.displayDirection = .vertical // Dirección de desplazamiento
+        pdfView.backgroundColor = .systemGray6 // Fondo agradable para la lectura
+        
+        if let document = PDFDocument(url: url) {
+            pdfView.document = document
+        }
+        
+        return pdfView
+    }
+
+    func updateUIView(_ uiView: PDFView, context: Context) {
+        // Aquí puedes manejar actualizaciones si es necesario
+    }
+}
 
 struct PDFViewer: View {
     var fileURL: URL
@@ -14,30 +37,16 @@ struct PDFViewer: View {
         return fileURL.lastPathComponent.replacingOccurrences(of: ".\(fileURL.pathExtension)", with: "")
     }
     
+    
     var body: some View {
         VStack{
             Text(fileName)
                 .lineLimit(1)
                 .truncationMode(.tail)
+            PDFKitView(url: fileURL)
         }
         .navigationTitle(fileName)
         .navigationBarTitleDisplayMode( UIDevice.current.userInterfaceIdiom == .pad ? .large : .inline)
-//        .toolbar {
-//            if isNew {
-//                ToolbarItem(placement: .confirmationAction) {
-//                    Button("Save") {
-//                        dismiss()
-//                    }
-//                }
-//            
-//                ToolbarItem(placement: .cancellationAction) {
-//                    Button("Cancel") {
-//                        context.delete(friend)
-//                        dismiss()
-//                    }
-//                }
-//            }
-//        }
     }
 }
 
