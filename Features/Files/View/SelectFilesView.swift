@@ -26,14 +26,14 @@ struct SelectView: View {
                     VStack (spacing: 20) {
                         Text("Select Files View!")
                         if UIDevice.current.userInterfaceIdiom != .pad {
-                            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: viewModel.showFileImporter, handleFiles: viewModel.loadFiles)
+                            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: viewModel.showFileImporter, handleFiles: viewModel.loadFiles, handleDrop: viewModel.handleDrop)
                         }
                     }
                 }
             }
             .navigationTitle("Files")
         } detail: {
-            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles)
+            DocumentPickerView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles, handleDrop: viewModel.handleDrop)
         }
     }
 }
