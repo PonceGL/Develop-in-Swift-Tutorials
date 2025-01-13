@@ -13,10 +13,10 @@ struct PDFKitView: UIViewRepresentable {
 
     func makeUIView(context: Context) -> PDFView {
         let pdfView = PDFView()
-        pdfView.autoScales = true // Ajusta automáticamente el zoom para que el contenido sea visible
-        pdfView.displayMode = .singlePageContinuous // Configuración para desplazarse entre páginas
-        pdfView.displayDirection = .vertical // Dirección de desplazamiento
-        pdfView.backgroundColor = .systemGray6 // Fondo agradable para la lectura
+        pdfView.autoScales = true
+        pdfView.displayMode = .singlePageContinuous
+        pdfView.displayDirection = .vertical
+        pdfView.backgroundColor = .systemGray6
         
         if let document = PDFDocument(url: url) {
             pdfView.document = document
@@ -26,7 +26,7 @@ struct PDFKitView: UIViewRepresentable {
     }
 
     func updateUIView(_ uiView: PDFView, context: Context) {
-        // Aquí puedes manejar actualizaciones si es necesario
+        uiView.document = PDFDocument(url: url)
     }
 }
 
