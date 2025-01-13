@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SelectView: View {
-    @StateObject private var viewModel = FilesViewModel()
+    @StateObject private var viewModel = SelectFilesViewModel()
     @State private var selectedFile: URL?
     
     var body: some View {
@@ -23,15 +23,6 @@ struct SelectView: View {
                         .tag(file.absoluteString)
                     }
                     .listStyle(.plain)
-                    
-//                    List {
-//                        ForEach(viewModel.files, id: \.absoluteString) { file in
-//                            NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
-//                                PDFViewer(fileURL: file)
-//                            }
-//                        }
-//                    }
-//                    .listStyle(.plain)
                 } else {
                     VStack (spacing: 20) {
                         Text("Select Files View!")

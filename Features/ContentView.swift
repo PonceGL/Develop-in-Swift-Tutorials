@@ -10,16 +10,16 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         TabView {
+            Tab("Files", systemImage: "folder.fill") {
+                SelectView()
+            }
+            
             Tab("Friends", systemImage: "person.and.person") {
                 FriendList()
             }
 
             Tab("Movies", systemImage: "film.stack") {
                 FilteredMovieList()
-            }
-            
-            Tab("Files", systemImage: "folder.fill") {
-                SelectView()
             }
         }
 
