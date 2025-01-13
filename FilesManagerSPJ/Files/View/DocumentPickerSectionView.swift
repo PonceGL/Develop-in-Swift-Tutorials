@@ -19,15 +19,6 @@ struct DocumentPickerSectionView: View {
                 Text("Drag & Drop Files Here")
                     .font(.title2)
                     .padding()
-//                    .frame(maxWidth: .infinity)
-//                    .frame(height: 200)
-//                    .background(Color.gray.opacity(0.2))
-//                    .cornerRadius(10)
-//                    .onDrop(
-//                        of: [.pdf],
-//                        isTargeted: nil,
-//                        perform: handleDrop
-//                    )
             }
             
             Button("Add file", systemImage: "plus", action: {

@@ -24,7 +24,6 @@ struct SelectFilesView: View {
                 } else {
                     VStack (spacing: 20) {
                         Text("Select Files!")
-//                        DocumentPickerSectionView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles, handleDrop: viewModel.handleDrop)
                     }
                 }
             }
@@ -37,7 +36,7 @@ struct SelectFilesView: View {
                     .disabled(viewModel.showFileImporter)
                 }
             }
-            .fileImporter(isPresented: $viewModel.showFileImporter, allowedContentTypes: [.pdf, .folder], allowsMultipleSelection: true, onCompletion: viewModel.loadFiles)
+            .fileImporter(isPresented: $viewModel.showFileImporter, allowedContentTypes: [.pdf], allowsMultipleSelection: true, onCompletion: viewModel.loadFiles)
         } detail: {
             VStack (spacing: 20) {
                 DocumentPickerSectionView(showFileImporter: $viewModel.showFileImporter, disabled: (viewModel.showFileImporter || viewModel.files.count > 0), handleFiles: viewModel.loadFiles, handleDrop: viewModel.handleDrop)

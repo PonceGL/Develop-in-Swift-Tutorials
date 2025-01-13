@@ -18,13 +18,16 @@ class SelectFilesViewModel: ObservableObject {
     private let fileManagerService = FileManagerService.shared
     
     private func addFile(file: URL) {
-        if file.hasDirectoryPath { return } // TODO: handle sub directories
-        let fileKey = file.absoluteString
-        guard !fileSet.contains(fileKey) else { return }
-        
         let gotAccess = file.startAccessingSecurityScopedResource()
         if gotAccess {
+            if file.hasDirectoryPath { return } // TODO: handle sub directories
+            if file.pathExtension != "pdf" { return }
+            
+            let fileKey = file.absoluteString
+            guard !fileSet.contains(fileKey) else { return }
+            
             fileSet.insert(file.absoluteString)
+            defer { file.stopAccessingSecurityScopedResource() }
             DispatchQueue.main.async {
                 self.files.append(file)
             }
@@ -35,6 +38,7 @@ class SelectFilesViewModel: ObservableObject {
         selectedDirectory = directory
         let files = loadFilesFromSelectedDirectory()
         for file in files {
+            file.stopAccessingSecurityScopedResource()
             addFile(file: file)
         }
     }
@@ -61,10 +65,6 @@ class SelectFilesViewModel: ObservableObject {
         switch result {
             case .success(let files):
             for file in files {
-                print("======================")
-                print("=== loadFiles file ===")
-                print(file)
-                print("======================")
                 if file.hasDirectoryPath {
                     addFilesFromDirectory(directory: file)
                 } else {

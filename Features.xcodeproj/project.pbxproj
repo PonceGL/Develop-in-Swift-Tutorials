@@ -12,7 +12,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0CEB64CD2D35AE4B009BD4E7 /* Exceptions for "Features" folder in "FilesManagerSPJ" target */ = {
+		0CEB64DF2D35BD3F009BD4E7 /* Exceptions for "Modules" folder in "FilesManagerSPJ" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Files/Model/FileManagerViewModel.swift,
@@ -25,15 +25,20 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0C27B7CB2D220F4F00654B42 /* Features */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0CEB64CD2D35AE4B009BD4E7 /* Exceptions for "Features" folder in "FilesManagerSPJ" target */,
-			);
 			path = Features;
 			sourceTree = "<group>";
 		};
 		0CEB64BD2D35A1B3009BD4E7 /* FilesManagerSPJ */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = FilesManagerSPJ;
+			sourceTree = "<group>";
+		};
+		0CEB64DD2D35BD0E009BD4E7 /* Modules */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0CEB64DF2D35BD3F009BD4E7 /* Exceptions for "Modules" folder in "FilesManagerSPJ" target */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -59,6 +64,7 @@
 		0C27B7C02D220F4F00654B42 = {
 			isa = PBXGroup;
 			children = (
+				0CEB64DD2D35BD0E009BD4E7 /* Modules */,
 				0C27B7CB2D220F4F00654B42 /* Features */,
 				0CEB64BD2D35A1B3009BD4E7 /* FilesManagerSPJ */,
 				0C27B7CA2D220F4F00654B42 /* Products */,
@@ -91,6 +97,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				0C27B7CB2D220F4F00654B42 /* Features */,
+				0CEB64DD2D35BD0E009BD4E7 /* Modules */,
 			);
 			name = Features;
 			packageProductDependencies = (
@@ -390,6 +397,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FilesManagerSPJ/FilesManagerSPJ.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -418,6 +426,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = FilesManagerSPJ/FilesManagerSPJ.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;

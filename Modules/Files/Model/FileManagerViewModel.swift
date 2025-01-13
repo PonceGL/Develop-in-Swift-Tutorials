@@ -18,8 +18,9 @@ class FileManagerService {
     
     func filesInDirectory(at url: URL) -> [URL]? {
         do {
-            
+            let _ = url.startAccessingSecurityScopedResource()
             let fileURLs = try fileManager.contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: .skipsHiddenFiles)
+            defer { url.stopAccessingSecurityScopedResource() } 
             return fileURLs
         } catch let error {
             print("===================")
