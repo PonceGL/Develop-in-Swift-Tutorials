@@ -15,12 +15,10 @@ struct SelectView: View {
         NavigationSplitView {
             Group {
                 if viewModel.files.count > 0 {
-                    List(viewModel.files, id: \.absoluteString, selection: $selectedFile) { file in
+                    List(viewModel.files, id: \.lastPathComponent, selection: $selectedFile) { file in
                         NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
-                            PDFViewer(fileURL: file)
-                                .tag(file.absoluteString)
+                            WorkSpacePDFView(fileURL: file)
                         }
-                        .tag(file.absoluteString)
                     }
                     .listStyle(.plain)
                 } else {
@@ -35,7 +33,7 @@ struct SelectView: View {
             .navigationTitle("Files")
             .toolbar {
                 ToolbarItem {
-                    Button("Add movie", systemImage: "plus", action: {
+                    Button("Add files", systemImage: "plus", action: {
                         viewModel.showFileImporter = true
                     })
                     .disabled(viewModel.showFileImporter)

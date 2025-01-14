@@ -34,17 +34,8 @@ struct PDFKitViewMac: NSViewRepresentable {
 struct PDFViewer: View {
     var fileURL: URL
     
-    var fileName: String {
-        return fileURL.lastPathComponent.replacingOccurrences(of: ".\(fileURL.pathExtension)", with: "")
-    }
-    
-    
     var body: some View {
-        
-        VStack{
-            PDFKitViewMac(url: fileURL)
-        }
-        .navigationTitle(fileName)
+        PDFKitViewMac(url: fileURL)
     }
 }
 

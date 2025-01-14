@@ -16,8 +16,6 @@ struct SelectFilesView: View {
                     List(viewModel.files, id: \.absoluteString) { file in
                         NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
                             PDFViewer(fileURL: file)
-                                .tag(file.absoluteString)
-//                            Text(file.lastPathComponent)
                         }
                     }
                     .listStyle(.plain)
