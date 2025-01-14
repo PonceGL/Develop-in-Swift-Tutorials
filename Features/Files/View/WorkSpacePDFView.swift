@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WorkSpacePDFView: View {
     @StateObject private var visionModel = VisionModel()
+    @State var isLoading: Bool = false
     private let pDFToImageModel = PDFToImageModel()
     var fileURL: URL
     var fileName: String {
@@ -17,35 +18,51 @@ struct WorkSpacePDFView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            VStack {
-                if UIDevice.current.userInterfaceIdiom != .pad {
-                    if visionModel.extractedText != nil {
-                        ScrollView {
-                            Text(visionModel.extractedText ?? "")
-                                .padding()
-                                .frame(maxWidth: .infinity)
-                        }
-                        .frame(maxWidth: .infinity, maxHeight: (proxy.size.height / 2))
-                    }
-                    
-                    PDFViewer(fileURL: fileURL)
-                }
-                else {
-                    HStack {
+            ZStack {
+                VStack {
+                    if UIDevice.current.userInterfaceIdiom != .pad {
                         if visionModel.extractedText != nil {
                             ScrollView {
                                 Text(visionModel.extractedText ?? "")
                                     .padding()
                                     .frame(maxWidth: .infinity)
+                                    .onAppear {
+                                        isLoading = false
+                                    }
                             }
-                            .frame(maxWidth: (proxy.size.width / 2))
+                            .frame(maxWidth: .infinity, maxHeight: (proxy.size.height / 2))
                         }
                         
                         PDFViewer(fileURL: fileURL)
+                            .opacity(isLoading ? 0.2 : 1)
+                    }
+                    else {
+                        HStack {
+                            if visionModel.extractedText != nil {
+                                ScrollView {
+                                    Text(visionModel.extractedText ?? "")
+                                        .padding()
+                                        .frame(maxWidth: .infinity)
+                                        .onAppear {
+                                            isLoading = false
+                                        }
+                                }
+                                .frame(maxWidth: (proxy.size.width / 2))
+                            }
+                            
+                            PDFViewer(fileURL: fileURL)
+                                .opacity(isLoading ? 0.2 : 1)
+                        }
                     }
                 }
+                .padding(20)
+                
+                if isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .blue))
+                        .scaleEffect(2)
+                }
             }
-            .padding(20)
         }
         .frame(maxWidth: .infinity)
         .shadow(radius: 5)
@@ -54,9 +71,11 @@ struct WorkSpacePDFView: View {
         .toolbar {
             ToolbarItem {
                 Button("Extraer texto", systemImage: "text.viewfinder", action: {
+                    isLoading = true
                     let images = pDFToImageModel.convertPDFToImages(pdfUrl: fileURL)
                     visionModel.extractText(from: images)
                 })
+                .disabled(isLoading)
             }
         }
     }

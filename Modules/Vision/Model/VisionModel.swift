@@ -12,33 +12,35 @@ class VisionModel: ObservableObject {
     @Published var extractedText: String?
     
     func extractText(from images: [UIImage]) {
-        var fullText = "" // Texto concatenado de todas las páginas
+        var fullText = ""
 
-        let group = DispatchGroup() // Controlar múltiples solicitudes Vision
+        let group = DispatchGroup()
+        
         for image in images {
             guard let cgImage = image.cgImage else { continue }
             group.enter()
 
             let request = VNRecognizeTextRequest { request, error in
-                defer { group.leave() } // Asegurarse de salir del grupo
+                defer { group.leave() }
 
                 if let error = error {
                     print("Error al reconocer texto: \(error.localizedDescription)")
                     return
                 }
+                
                 guard let observations = request.results as? [VNRecognizedTextObservation] else { return }
 
                 let pageText = observations
                     .compactMap { $0.topCandidates(1).first?.string }
                     .joined(separator: "\n")
 
-                fullText += pageText + "\n\n" // Concatenar texto
+                fullText += pageText + "\n\n"
             }
 
             request.recognitionLevel = .accurate
             request.usesLanguageCorrection = true
             request.recognitionLanguages = ["es"]
-//            request.revision = VNRecognizeTextRequestRevision2
+            request.revision = VNRecognizeTextRequestRevision3
 
             let handler = VNImageRequestHandler(cgImage: cgImage, options: [:])
 
@@ -52,10 +54,8 @@ class VisionModel: ObservableObject {
             }
         }
 
-        // Una vez completadas todas las solicitudes, actualizar el estado
         group.notify(queue: .main) {
-            self.extractedText = fullText // Actualizar texto extraído
+            self.extractedText = fullText
         }
     }
-
 }
