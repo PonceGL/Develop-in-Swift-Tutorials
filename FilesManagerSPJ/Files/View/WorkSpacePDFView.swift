@@ -9,9 +9,9 @@ import SwiftUI
 import AppKit
 
 struct WorkSpacePDFView: View {
+    @StateObject private var visionModel = VisionModel()
     @State var isLoading: Bool = false
     private let pdfToImageModel = PDFToImageModel()
-    @State var image: NSImage?
     var fileURL: URL
     var fileName: String {
         return fileURL.lastPathComponent.replacingOccurrences(of: ".\(fileURL.pathExtension)", with: "")
@@ -22,15 +22,18 @@ struct WorkSpacePDFView: View {
             ZStack {
                 VStack {
                     HStack {
-                        if image != nil {
-                            Image(nsImage: image!)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: (proxy.size.width / 2))
-                                .onAppear {
-                                    isLoading = false
-                                }
-                        } else {
+                        if visionModel.extractedText != nil {
+                            ScrollView {
+                                Text(visionModel.extractedText ?? "")
+                                    .padding()
+                                    .frame(maxWidth: .infinity)
+                                    .onAppear {
+                                        isLoading = false
+                                    }
+                            }
+                            .frame(maxWidth: .infinity, maxHeight: proxy.size.height)
+                        }
+                        else {
                             Text("Work Space PDF View!")
                         }
                         PDFViewer(fileURL: fileURL)
@@ -55,9 +58,8 @@ struct WorkSpacePDFView: View {
                     isLoading = true
                     let images = pdfToImageModel.convertPDFToImages(pdfURL: fileURL)
                     if images.count > 0 {
-                        self.image = images.first
+                        visionModel.extractText(from: images.first!){ _ in }
                     }
-//                    visionModel.extractText(from: images)
                 })
                 .disabled(isLoading)
             }
