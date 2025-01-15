@@ -15,7 +15,7 @@ struct SelectFilesView: View {
                 if viewModel.files.count > 0 {
                     List(viewModel.files, id: \.absoluteString) { file in
                         NavigationLink(file.lastPathComponent.replacingOccurrences(of: ".\(file.pathExtension)", with: "")) {
-                            PDFViewer(fileURL: file)
+                            WorkSpacePDFView(fileURL: file)
                         }
                     }
                     .listStyle(.plain)
