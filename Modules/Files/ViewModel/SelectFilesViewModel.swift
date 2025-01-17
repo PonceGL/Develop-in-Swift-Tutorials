@@ -13,9 +13,10 @@ class SelectFilesViewModel: ObservableObject {
     @Published var files: [URL] = []
     @Published var showFileImporter = false
     @Published var errorMessage: String? = nil
-    private var selectedDirectory: URL? = nil
+    @Published var selectedDirectory: URL? = nil
     private var fileSet: Set<String> = []
     private let fileManagerService = FileManagerService.shared
+    private let fileManagerViewModel = FileManagerViewModel()
     
     private func addFile(file: URL) {
         let gotAccess = file.startAccessingSecurityScopedResource()
@@ -48,13 +49,22 @@ class SelectFilesViewModel: ObservableObject {
         
         let directoryExists = fileManagerService.directoryExists(at: directoryURL)
         if directoryExists {
-            if let filesURLs = fileManagerService.filesInDirectory(at: directoryURL) {
-                errorMessage = nil
-                return filesURLs
-            } else {
-                errorMessage = "No se pudieron cargar los archivos del directorio."
-                return []
+            let rootFiles = fileManagerViewModel.fetchFiles(from: directoryURL)
+            if rootFiles != nil {
+                print("===========================")
+                print("SelectFilesViewModel rootFiles")
+                print(rootFiles as Any)
+                print("===========================")
             }
+            
+            return []
+//            if let filesURLs = fileManagerService.filesInDirectory(at: directoryURL) {
+//                errorMessage = nil
+//                return filesURLs
+//            } else {
+//                errorMessage = "No se pudieron cargar los archivos del directorio."
+//                return []
+//            }
         } else {
             errorMessage = "El directorio ya no existe. Por favor selecciona otro."
             return []

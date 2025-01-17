@@ -52,18 +52,18 @@ struct WorkSpacePDFView: View {
         .shadow(radius: 5)
         .background(Color.blue.opacity(0.1))
         .navigationTitle(fileName)
-        .toolbar{
-            ToolbarItem {
-                Button("Extraer texto", systemImage: "text.viewfinder", action: {
-                    isLoading = true
-                    let images = pdfToImageModel.convertPDFToImages(pdfURL: fileURL)
-                    if images.count > 0 {
-                        visionModel.extractText(from: images.first!){ _ in }
-                    }
-                })
-                .disabled(isLoading)
-            }
-        }
+//        .toolbar{
+//            ToolbarItem {
+//                Button("Extraer texto", systemImage: "text.viewfinder", action: {
+//                    isLoading = true
+//                    let images = pdfToImageModel.convertPDFToImages(pdfURL: fileURL)
+//                    if images.count > 0 {
+//                        visionModel.extractText(from: images.first!){ _ in }
+//                    }
+//                })
+//                .disabled(isLoading)
+//            }
+//        }
     }
 }
 

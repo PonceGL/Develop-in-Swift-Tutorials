@@ -12,10 +12,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0C49D1E32D3AFD6100A3379A /* Exceptions for "FilesManagerSPJ" folder in "Features" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Files/View/FileListView.swift,
+			);
+			target = 0C27B7C82D220F4F00654B42 /* Features */;
+		};
 		0CEB64DF2D35BD3F009BD4E7 /* Exceptions for "Modules" folder in "FilesManagerSPJ" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Files/Model/FileManagerViewModel.swift,
+				Files/Model/FileManagerService.swift,
+				Files/Model/FileModel.swift,
+				Files/ViewModel/FileManagerViewModel.swift,
 				Files/ViewModel/SelectFilesViewModel.swift,
 			);
 			target = 0CEB64BB2D35A1B3009BD4E7 /* FilesManagerSPJ */;
@@ -30,6 +39,9 @@
 		};
 		0CEB64BD2D35A1B3009BD4E7 /* FilesManagerSPJ */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0C49D1E32D3AFD6100A3379A /* Exceptions for "FilesManagerSPJ" folder in "Features" target */,
+			);
 			path = FilesManagerSPJ;
 			sourceTree = "<group>";
 		};
